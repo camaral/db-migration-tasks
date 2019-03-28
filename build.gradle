@@ -1,0 +1,30 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.3.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.wirecard'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudFunctionVersion', '2.0.1.RELEASE')
+	set('awsLambdaEventsVersion', '2.2.6')
+	set('awsLambdaCoreVersion', '1.2.0')
+}
+
+dependencies {
+	compile("org.springframework.cloud:spring-cloud-starter-function-web:${springCloudFunctionVersion}")
+	compile("org.springframework.cloud:spring-cloud-function-adapter-aws:${springCloudFunctionVersion}")
+	compileOnly("com.amazonaws:aws-lambda-java-events:${awsLambdaEventsVersion}")
+	compileOnly("com.amazonaws:aws-lambda-java-core:${awsLambdaCoreVersion}")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+

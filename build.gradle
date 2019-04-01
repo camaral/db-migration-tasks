@@ -28,3 +28,12 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
+task buildZip(type: Zip) {
+	from compileJava
+	from processResources
+	into('lib') {
+		from configurations.compileClasspath
+	}
+}
+
+build.dependsOn buildZip

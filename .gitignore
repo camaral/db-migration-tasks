@@ -22,3 +22,6 @@ test-output/
 # intellij
 .idea
 *.iml
+
+# terraform
+.terraform

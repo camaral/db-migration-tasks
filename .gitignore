@@ -4,6 +4,7 @@ hs_err_pid*
 # gradle
 build/
 out/
+.gradle/
 
 # eclipse
 .classpath

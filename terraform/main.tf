@@ -3,10 +3,10 @@ provider "aws" {
   profile = "dbmigration"
 }
 
-resource "aws_instance" "h2_database" {
-  ami           = "ami-2757f631"
-  instance_type = "t2.micro"
-}
+//resource "aws_instance" "h2_database" {
+//  ami           = "ami-2757f631"
+//  instance_type = "t2.micro"
+//}
 
 resource "aws_iam_role" "iam_for_db_deployment" {
   name = "iam_for_lambda"

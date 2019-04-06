@@ -18,3 +18,4 @@ test-output/
 
 # terraform
 .terraform
+terraform.tfstate*

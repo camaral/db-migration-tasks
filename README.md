@@ -17,3 +17,8 @@ terraform apply
 ```aws lambda invoke --region=us-east-1 --function-name=db_deployment --profile dbmigration output.txt
 cat output.txt
 ```
+
+## Troubleshooting
+Spring applications are not very economic with memory and also may take some time to start up.
+If you are getting timeouts when invoking the lambda function, first check Cloudwatch logs, then try to increase
+the parameter `timeout` and `memory_size` on`terraform/main.tf`.

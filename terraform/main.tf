@@ -63,5 +63,5 @@ resource "aws_lambda_function" "db_deployment" {
   source_code_hash = "${filebase64sha256("../build/distributions/liquibase-function-db-migration-0.0.1-SNAPSHOT.zip")}"
   runtime          = "java8"
   timeout          = 60
-  memory_size      = 512
+  memory_size      = 256
 }

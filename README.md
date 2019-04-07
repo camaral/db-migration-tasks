@@ -14,9 +14,11 @@ terraform init
 terraform apply
 ```
 - Invoke the function.
-```aws lambda invoke --region=us-east-1 --function-name=db_deployment --profile dbmigration output.txt
+```
+aws lambda invoke --region=us-east-1 --function-name=db_deployment --profile dbmigration output.txt
 cat output.txt
 ```
+- Once you are done with testing, you can destroy the system with `terraform destroy`.
 
 ## Troubleshooting
 Spring applications are not very economic with memory and also may take some time to start up.

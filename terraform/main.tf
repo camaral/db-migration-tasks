@@ -3,10 +3,10 @@ provider "aws" {
   profile = "dbmigration"
 }
 
-//resource "aws_instance" "h2_database" {
-//  ami           = "ami-2757f631"
-//  instance_type = "t2.micro"
-//}
+resource "aws_cloudwatch_log_group" "example" {
+  name              = "/aws/lambda/${aws_lambda_function.db_deployment.function_name}"
+  retention_in_days = 5
+}
 
 resource "aws_iam_role" "iam_for_db_deployment" {
   name = "iam_for_lambda"
@@ -28,11 +28,40 @@ resource "aws_iam_role" "iam_for_db_deployment" {
 EOF
 }
 
+resource "aws_iam_policy" "lambda_logging" {
+  name = "lambda_logging"
+  path = "/"
+  description = "IAM policy for logging from a lambda"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*",
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_logs" {
+  role = "${aws_iam_role.iam_for_db_deployment.name}"
+  policy_arn = "${aws_iam_policy.lambda_logging.arn}"
+}
+
 resource "aws_lambda_function" "db_deployment" {
   filename         = "../build/distributions/liquibase-function-db-migration-0.0.1-SNAPSHOT.zip"
   function_name    = "db_deployment"
   role             = "${aws_iam_role.iam_for_db_deployment.arn}"
-  handler          = "exports.test"
+  handler          = "org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler"
   source_code_hash = "${filebase64sha256("../build/distributions/liquibase-function-db-migration-0.0.1-SNAPSHOT.zip")}"
   runtime          = "java8"
+  timeout          = 60
+  memory_size      = 512
 }

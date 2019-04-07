@@ -6,10 +6,25 @@
       "Effect": "Allow",
       "Action": [
         "iam:GetRole",
-        "iam:PassRole",
+        "iam:GetPolicyVersion",
+        "iam:GetPolicy",
+        "iam:ListEntitiesForPolicy",
+        "iam:DeletePolicy",
         "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:AttachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:CreatePolicy",
+        "iam:GetContextKeysForCustomPolicy",
         "iam:ListInstanceProfilesForRole",
-        "iam:DeleteRole"
+        "iam:ListAttachedRolePolicies",
+        "iam:PassRole",
+        "iam:DetachRolePolicy",
+        "iam:ListPolicyVersions",
+        "iam:DeleteRolePolicy",
+        "iam:CreatePolicyVersion",
+        "iam:GetRolePolicy",
+        "iam:DeletePolicyVersion"
       ],
       "Resource": "*",
       "Condition": {
@@ -25,7 +40,25 @@
         "lambda:CreateFunction",
         "lambda:GetFunction",
         "lambda:ListVersionsByFunction",
-        "lambda:DeleteFunction"
+        "lambda:DeleteFunction",
+        "lambda:InvokeFunction",
+        "lambda:UpdateFunctionConfiguration"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": "46.128.117.113"
+        }
+      }
+    },
+    {
+      "Sid": "VisualEditor2",
+      "Effect": "Allow",
+      "Action": [
+        "logs:DescribeLogGroups",
+        "logs:DeleteLogGroup",
+        "logs:CreateLogGroup",
+        "logs:PutRetentionPolicy"
       ],
       "Resource": "*",
       "Condition": {

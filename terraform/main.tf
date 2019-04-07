@@ -56,11 +56,11 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 }
 
 resource "aws_lambda_function" "db_deployment" {
-  filename         = "../build/distributions/liquibase-function-db-migration-0.0.1-SNAPSHOT.zip"
+  filename         = "../build/distributions/function-db-migration-0.0.1-SNAPSHOT.zip"
   function_name    = "db_deployment"
   role             = "${aws_iam_role.iam_for_db_deployment.arn}"
   handler          = "org.springframework.cloud.function.adapter.aws.SpringBootStreamHandler"
-  source_code_hash = "${filebase64sha256("../build/distributions/liquibase-function-db-migration-0.0.1-SNAPSHOT.zip")}"
+  source_code_hash = "${filebase64sha256("../build/distributions/function-db-migration-0.0.1-SNAPSHOT.zip")}"
   runtime          = "java8"
   timeout          = 60
   memory_size      = 256

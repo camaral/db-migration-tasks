@@ -3,4 +3,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'liquibase-function-db-migration'
+rootProject.name = 'function-db-migration'

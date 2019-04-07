@@ -1,5 +1,6 @@
 plugins {
-	id 'java'
+    id 'java'
+    id 'groovy'
 }
 
 group = 'camaral'
@@ -7,21 +8,24 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	compileOnly("com.amazonaws:aws-lambda-java-events:2.2.6")
-	compileOnly("com.amazonaws:aws-lambda-java-core:1.2.0")
+    compile("com.amazonaws:aws-lambda-java-core:1.2.0")
+    compile('org.liquibase:liquibase-core:3.6.3')
+    compile('com.h2database:h2:1.4.199')
+    testCompile 'org.spockframework:spock-core:1.3-groovy-2.5'
+
 }
 
 task buildZip(type: Zip) {
-	from compileJava
-	from processResources
-	into('lib') {
-		from configurations.compileClasspath
-	}
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.compileClasspath
+    }
 }
 
 build.dependsOn buildZip

@@ -59,9 +59,9 @@ resource "aws_lambda_function" "db_deployment" {
   filename         = "../build/distributions/function-db-migration-0.0.1-SNAPSHOT.zip"
   function_name    = "db_deployment"
   role             = "${aws_iam_role.iam_for_db_deployment.arn}"
-  handler          = "camaral.dbmigration.aws.DbMigration::handleRequest"
+  handler          = "camaral.dbmigration.aws.DbMigration::run"
   source_code_hash = "${filebase64sha256("../build/distributions/function-db-migration-0.0.1-SNAPSHOT.zip")}"
   runtime          = "java8"
   timeout          = 60
-  memory_size      = 256
+  memory_size      = 192
 }

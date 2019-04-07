@@ -37,12 +37,7 @@
       "Sid": "VisualEditor1",
       "Effect": "Allow",
       "Action": [
-        "lambda:CreateFunction",
-        "lambda:GetFunction",
-        "lambda:ListVersionsByFunction",
-        "lambda:DeleteFunction",
-        "lambda:InvokeFunction",
-        "lambda:UpdateFunctionConfiguration"
+        "lambda:*"
       ],
       "Resource": "*",
       "Condition": {
@@ -55,10 +50,7 @@
       "Sid": "VisualEditor2",
       "Effect": "Allow",
       "Action": [
-        "logs:DescribeLogGroups",
-        "logs:DeleteLogGroup",
-        "logs:CreateLogGroup",
-        "logs:PutRetentionPolicy"
+        "logs:*"
       ],
       "Resource": "*",
       "Condition": {

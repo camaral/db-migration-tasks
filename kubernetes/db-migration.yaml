@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: function-db-migration
+spec:
+  ttlSecondsAfterFinished: 100
+  backoffLimit: 1
+  template:
+    spec:
+      containers:
+        - name: function-db-migration
+          image: function-db-migration-img
+          command: ["java",  "-jar", "function-db-migration.jar"]
+      restartPolicy: Never

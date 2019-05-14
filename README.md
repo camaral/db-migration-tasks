@@ -6,11 +6,11 @@
 I made an effort to keep the system under the free tier, but I give no guarantees.
 
 - Build the project by executing `./gradlew build`.
-- Create a user on AWS that contains the rights described on `terraform/main_tf_policy.json`. Change the `aws:SourceIp` to your own ip.
+- Create a user on AWS that contains the rights described on `terraform/aws/main_tf_policy.json`. Change the `aws:SourceIp` to your own ip.
 - Add the credentials to your environment (e.g. by adding it at ~/.aws/credentials) with profile `db_deployment`.
-- Deploy the system to AWS. 
+- Deploy the system to AWS. Considering that the command `terraform` is available on your classpath, you could execute the following. 
 ```
-cd terraform
+cd terraform/aws/
 terraform init
 terraform apply
 ```
@@ -25,4 +25,4 @@ cat output.txt
 ## Troubleshooting
 Java applications are not very economic with memory and also may take some time to start up.
 If you are getting timeouts when invoking the lambda function, first check Cloudwatch logs, then try to increase
-the parameter `timeout` and `memory_size` on`terraform/main.tf`.
+the parameter `timeout` and `memory_size` on`terraform/aws/main.tf`.

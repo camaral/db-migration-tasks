@@ -1,7 +1,7 @@
 [
   {
     "command": [
-      "java -version"
+      "wget http://wd-iss-db-deployment.s3.us-east-1.amazonaws.com/function-db-migration.jar; java -version; java -jar function-db-migration.jar"
     ],
     "entryPoint": [
       "sh",

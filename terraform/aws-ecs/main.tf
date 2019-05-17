@@ -7,6 +7,18 @@ resource "aws_default_subnet" "default_az1" {
   availability_zone = "us-east-1a"
 }
 
+resource "aws_s3_bucket" "db_deployment" {
+  bucket = "wd-iss-db-deployment"
+  acl = "private"
+}
+
+resource "aws_s3_bucket_object" "object" {
+  bucket = "${aws_s3_bucket.db_deployment.bucket}"
+  key = "function-db-migration.jar"
+  source = "../../build/libs/function-db-migration-0.0.1-SNAPSHOT.jar"
+  etag = "${filemd5("../../build/libs/function-db-migration-0.0.1-SNAPSHOT.jar")}"
+}
+
 resource "aws_ecs_cluster" "db_deployment" {
   name = "db-deployment-cluster"
 }
@@ -27,9 +39,13 @@ resource "aws_ecs_task_definition" "db_deployment" {
     "aws_ecs_cluster.db_deployment"
   ]
 
-  //  provisioner "local-exec" {
-  //    command = "aws ecs run-task --cluster ${aws_ecs_cluster.db_deployment.arn} --task-definition ${aws_ecs_task_definition.db_deployment.arn} --network-configuration 'awsvpcConfiguration={subnets=[${aws_default_subnet.default_az1.id}],assignPublicIp=ENABLED}' --launch-type=FARGATE --profile dbmigration --region us-east-1"
-  // }
+//  provisioner "local-exec" {
+//    command = <<EOF
+//aws ecs run-task --cluster ${aws_ecs_cluster.db_deployment.arn} --task-definition ${aws_ecs_task_definition.db_deployment.arn} \
+//    --network-configuration 'awsvpcConfiguration={subnets=[${aws_default_subnet.default_az1.id}],assignPublicIp=ENABLED}' \
+//    --launch-type=FARGATE --profile dbmigration --region us-east-1
+//EOF
+//  }
 }
 
 output "cluster_arn" {

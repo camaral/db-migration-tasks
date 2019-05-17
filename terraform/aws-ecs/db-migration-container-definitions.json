@@ -1,0 +1,28 @@
+[
+  {
+    "command": [
+      "java -version"
+    ],
+    "entryPoint": [
+      "sh",
+      "-c"
+    ],
+    "image": "openjdk:8-alpine",
+    "name": "db-migration-container",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "secretOptions": null,
+      "options": {
+        "awslogs-group": "/ecs/db-deployment-definition",
+        "awslogs-region": "us-east-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    }
+  }
+]
+
+
+
+
+
+

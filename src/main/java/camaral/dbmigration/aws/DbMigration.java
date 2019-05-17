@@ -23,6 +23,10 @@ public class DbMigration {
 
     protected final Logger log = LogService.getLog(DbMigration.class);
 
+    public static void main(String[] args) {
+        new DbMigration().run(null, null);
+    }
+
     public Integer run(Void input, Context ctx) {
         log.info("Calling db-migration function");
 
